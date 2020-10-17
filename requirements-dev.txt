@@ -1,0 +1,6 @@
+pytest~=6.0
+isort~=5.6.4
+black
+flake8==3.8.3
+mypy~=0.782
+pytest-asyncio~=0.14.0

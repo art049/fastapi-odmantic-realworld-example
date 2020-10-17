@@ -1,0 +1,5 @@
+git+https://github.com/art049/odmantic.git
+fastapi
+uvicorn
+passlib[bcrypt]
+python-jose[cryptography]

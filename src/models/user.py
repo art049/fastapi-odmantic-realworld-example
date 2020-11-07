@@ -1,7 +1,7 @@
-from typing import Optional
+from typing import Optional, Tuple
 
 from odmantic import Model
-from pydantic.types import SecretStr
+from odmantic.bson import ObjectId
 
 
 class UserModel(Model):
@@ -10,3 +10,4 @@ class UserModel(Model):
     hashed_password: str
     bio: Optional[str] = None
     image: Optional[str] = None
+    following_ids: Tuple[ObjectId, ...] = ()

@@ -11,7 +11,8 @@ from passlib.context import CryptContext
 from pydantic import BaseModel, ValidationError
 from starlette.requests import Request
 
-from models import UserModel
+from core.exceptions import CredentialsException, NotAuthenticatedException
+from models.user import UserModel
 from schemas.user import User
 from settings import SETTINGS, EngineD
 
@@ -34,25 +35,17 @@ class OAuth2PasswordToken(OAuth2):
         tokenUrl: str,
         scheme_name: Optional[str] = None,
         scopes: Optional[dict] = None,
-        auto_error: bool = True,
     ):
         if not scopes:
             scopes = {}
         flows = OAuthFlowsModel(password={"tokenUrl": tokenUrl, "scopes": scopes})
-        super().__init__(flows=flows, scheme_name=scheme_name, auto_error=auto_error)
+        super().__init__(flows=flows, scheme_name=scheme_name, auto_error=False)
 
     async def __call__(self, request: Request) -> Optional[str]:
         authorization: str = request.headers.get("Authorization")
         scheme, param = get_authorization_scheme_param(authorization)
         if not authorization or scheme.lower() != "token":
-            if self.auto_error:
-                raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Not authenticated",
-                    headers={"WWW-Authenticate": "Token"},
-                )
-            else:
-                return None
+            return None
         return param
 
 
@@ -105,17 +98,12 @@ def create_access_token(user: UserModel) -> str:
     return str(encoded_jwt)
 
 
-CREDENTIALS_EXCEPTION = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Could not validate credentials",
-    headers={"WWW-Authenticate": "Bearer"},
-)
-
-
-async def get_current_user(
-    token: str = Depends(OAUTH2_SCHEME), engine: AIOEngine = EngineD
-) -> User:
+async def get_current_user_instance(
+    token: Optional[str] = Depends(OAUTH2_SCHEME), engine: AIOEngine = EngineD
+) -> UserModel:
     """Decode the JWT and return the associated User"""
+    if token is None:
+        raise NotAuthenticatedException()
     try:
         payload = jwt.decode(
             token,
@@ -123,15 +111,31 @@ async def get_current_user(
             algorithms=[SETTINGS.ALGORITHM],
         )
     except JWTError:
-        raise CREDENTIALS_EXCEPTION
+        raise CredentialsException()
 
     try:
         token_content = TokenContent.parse_raw(payload.get("sub"))
     except ValidationError:
-        raise CREDENTIALS_EXCEPTION
+        raise CredentialsException()
 
     user = await get_user_instance(engine, username=token_content.username)
     if user is None:
-        raise CREDENTIALS_EXCEPTION
+        raise CredentialsException()
+    return user
 
-    return User(token=token, **user.dict())
+
+async def get_current_user_optional_instance(
+    token: str = Depends(OAUTH2_SCHEME), engine: AIOEngine = EngineD
+) -> Optional[UserModel]:
+    try:
+        user = await get_current_user_instance(token, engine)
+        return user
+    except HTTPException:
+        return None
+
+
+async def get_current_user(
+    user_instance: UserModel = Depends(get_current_user_instance),
+    token: str = Depends(OAUTH2_SCHEME),
+) -> User:
+    return User(token=token, **user_instance.dict())

@@ -1,20 +1,22 @@
 from typing import Optional
 
-from pydantic import BaseModel, SecretStr
+from pydantic import SecretStr
+
+from .base import BaseSchema
 
 
-class LoginUser(BaseModel):
+class LoginUser(BaseSchema):
     email: str
     password: SecretStr
 
 
-class NewUser(BaseModel):
+class NewUser(BaseSchema):
     username: str
     email: str
     password: str
 
 
-class User(BaseModel):
+class User(BaseSchema):
     email: str
     token: str
     username: str
@@ -22,11 +24,11 @@ class User(BaseModel):
     image: Optional[str]
 
 
-class UserResponse(BaseModel):
+class UserResponse(BaseSchema):
     user: User
 
 
-class UpdateUser(BaseModel):
+class UpdateUser(BaseSchema):
     email: Optional[str] = None
     token: Optional[str] = None
     username: Optional[str] = None
@@ -34,8 +36,12 @@ class UpdateUser(BaseModel):
     image: Optional[str] = None
 
 
-class Profile(BaseModel):
+class Profile(BaseSchema):
     username: str
-    bio: str
-    image: str
-    following: bool
+    bio: Optional[str]
+    image: Optional[str]
+    following: bool = False
+
+
+class ProfileResponse(BaseSchema):
+    profile: Profile

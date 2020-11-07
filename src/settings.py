@@ -1,3 +1,4 @@
+from odmantic.engine import AIOEngine
 from odmantic.fastapi import AIOEngineDependency
 from pydantic import BaseSettings
 from pydantic.types import SecretStr

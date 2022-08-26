@@ -24,13 +24,10 @@
 - Install pipenv on your system : `pip install pipenv` or `curl https://raw.githubusercontent.com/kennethreitz/pipenv/master/get-pipenv.py | python`
 - Setup the environment `./scripts/setup.sh`
 
-### :bulb: Useful `pipenv` commands
+### :bulb: Useful scripts
 
-- Format the code `pipenv run format`
-- Manually run the linter `pipenv run lint`
-- Manually run the tests `pipenv run test`
-- Add a development package `pipenv install --dev <my-package>`
-- Add a production package `pipenv install <my-package>`
-- Jump into the virtualenv to run commands in the environment `pipenv shell`
+- Format the code `./scripts/format.sh`
+- Manually run the linter `./scripts/lint.sh`
+- Manually run the tests `./scripts/test.sh`
 
 ---

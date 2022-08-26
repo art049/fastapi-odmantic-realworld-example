@@ -32,7 +32,9 @@ async def build_get_articles_query(
         )
         if favorited_user is None:
             return None
-        query &= ArticleModel.id.in_(favorited_user.favorite_article_ids)
+        query &= {
+            +ArticleModel.favorited_user_ids: {"$elemMatch": {"$eq": favorited_user.id}}
+        }
 
     return query
 

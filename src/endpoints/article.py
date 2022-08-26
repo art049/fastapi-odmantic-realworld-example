@@ -66,7 +66,9 @@ async def create_article(
     user_instance: UserModel = Depends(get_current_user_instance),
     engine: AIOEngine = EngineD,
 ):
+    print(new_article.tag_list)
     article = ArticleModel(author=user_instance, **new_article.dict())
+    article.tag_list.sort()
     await engine.save(article)
     return SingleArticleResponse.from_article_instance(article, user_instance)
 

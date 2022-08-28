@@ -1,2 +1,2 @@
 #!/bin/bash
-uvicorn --app-dir ./src/ api:app
+poetry run uvicorn --app-dir ./src/ api:app

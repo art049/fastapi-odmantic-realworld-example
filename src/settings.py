@@ -1,9 +1,8 @@
-from odmantic.engine import AIOEngine
+from typing import Optional
+
 from odmantic.fastapi import AIOEngineDependency
 from pydantic import BaseSettings
 from pydantic.types import SecretStr
-
-EngineD = AIOEngineDependency()
 
 
 class _Settings(BaseSettings):
@@ -12,7 +11,10 @@ class _Settings(BaseSettings):
     )
     ALGORITHM = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES = 30
+    MONGO_URI: Optional[str] = None
 
 
 # Make this a singleton to avoid reloading it from the env everytime
 SETTINGS = _Settings()
+
+EngineD = AIOEngineDependency(mongo_uri=SETTINGS.MONGO_URI)

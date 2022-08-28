@@ -35,3 +35,9 @@
 - Format the code `./scripts/format.sh`
 - Manually run the linter `./scripts/lint.sh`
 - Manually run the tests `./scripts/test.sh`
+
+## Coming Soon
+
+- [ ] Articles with details on every single step required to build this app
+- [ ] Testing
+- [ ] Deployment on AWS with MongoDB Atlas

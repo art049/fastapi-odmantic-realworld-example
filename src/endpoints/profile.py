@@ -1,16 +1,11 @@
 from typing import Optional
 
-from fastapi import APIRouter, Body, Depends, status
-from fastapi.exceptions import HTTPException
+from fastapi import APIRouter, Depends
 from odmantic import AIOEngine
-from odmantic.bson import ObjectId
 
-from core.article import get_article_by_slug
 from core.user import get_user_by_username
-from models.article import CommentModel
 from models.user import UserModel
-from schemas.comment import MultipleCommentsResponse, NewComment, SingleCommentResponse
-from schemas.user import Profile, ProfileResponse, User
+from schemas.user import Profile, ProfileResponse
 from settings import EngineD
 from utils.security import get_current_user_instance, get_current_user_optional_instance
 

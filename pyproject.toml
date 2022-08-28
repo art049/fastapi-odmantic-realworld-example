@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "fastapi-odmantic-example"
+version = "0.1.0"
+description = ""
+authors = ["Arthur Pastel <arthur.pastel@gmail.com>"]
+license = "ISC"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.80.0"
+uvicorn = "^0.18.3"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+odmantic = {git = "https://github.com/art049/odmantic.git"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+isort = "^5.10.1"
+black = "^22.6.0"
+flake8 = "^5.0.4"
+mypy = "^0.971"
+pytest-asyncio = "^0.19.0"
+pre-commit = "^2.20.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

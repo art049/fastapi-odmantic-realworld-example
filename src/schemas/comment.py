@@ -1,10 +1,11 @@
 from datetime import datetime
-from typing import List
+from typing import List, Tuple
 
 from odmantic.bson import ObjectId
 from pydantic import Field
 
-from models.article import ArticleModel
+from models.article import CommentModel
+from models.user import UserModel
 from schemas.user import Profile
 
 from .base import BaseSchema
@@ -26,8 +27,10 @@ class MultipleCommentsResponse(BaseSchema):
     comments: List[Comment]
 
     @classmethod
-    def from_article_instance(cls, article: ArticleModel):
-        return cls(comments=article.comments)
+    def from_comments_and_authors(cls, data: List[Tuple[CommentModel, UserModel]]):
+        return cls(
+            comments=[{**comment.dict(), "author": author} for comment, author in data]
+        )
 
 
 class NewComment(BaseSchema):

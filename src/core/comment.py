@@ -1,15 +1,20 @@
-from typing import Tuple
+from typing import List, Tuple
 
 from odmantic.bson import ObjectId
 from odmantic.engine import AIOEngine
 
-from core.exceptions import CommentNotFoundException, NotCommentAuthorException
+from core.exceptions import (
+    ArticleNotFoundException,
+    CommentAuthorNotFoundException,
+    CommentNotFoundException,
+    NotCommentAuthorException,
+)
 from models.article import ArticleModel, CommentModel
 from models.user import UserModel
 
 
 def ensure_is_comment_author(user: UserModel, comment: CommentModel):
-    if comment.author != user:
+    if comment.authorId != user.id:
         raise NotCommentAuthorException()
 
 
@@ -18,6 +23,32 @@ async def add_new_comment(
 ):
     article.comments += (comment,)
     await engine.save(article)
+
+
+async def get_article_comments_and_authors_by_slug(
+    engine: AIOEngine, slug: str
+) -> List[Tuple[CommentModel, UserModel]]:
+    article = await engine.find_one(ArticleModel, ArticleModel.slug == slug)
+    if article is None:
+        raise ArticleNotFoundException()
+    comment_authors = await engine.find(
+        UserModel,
+        UserModel.id.in_(list(comment.authorId for comment in article.comments)),
+    )
+    try:
+        return list(
+            [
+                (
+                    comment,
+                    next(
+                        user for user in comment_authors if user.id == comment.authorId
+                    ),
+                )
+                for comment in article.comments
+            ]
+        )
+    except StopIteration:
+        raise CommentAuthorNotFoundException()
 
 
 def get_comment_and_index_from_id(

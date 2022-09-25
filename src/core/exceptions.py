@@ -20,6 +20,13 @@ class CommentNotFoundException(HTTPException):
         )
 
 
+class CommentAuthorNotFoundException(HTTPException):
+    def __init__(self) -> None:
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Comment author not found"
+        )
+
+
 class ProfileNotFoundException(HTTPException):
     def __init__(self) -> None:
         super().__init__(

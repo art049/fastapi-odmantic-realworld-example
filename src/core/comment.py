@@ -33,7 +33,7 @@ async def get_article_comments_and_authors_by_slug(
         raise ArticleNotFoundException()
     comment_authors = await engine.find(
         UserModel,
-        UserModel.id.in_(list(comment.authorId for comment in article.comments)),
+        UserModel.id.in_(comment.authorId for comment in article.comments),
     )
     try:
         return list(

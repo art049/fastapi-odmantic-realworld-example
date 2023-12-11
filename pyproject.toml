@@ -1,17 +1,18 @@
 [tool.poetry]
-name = "fastapi-odmantic-example"
+name = "fastapi-odmantic-realworld-example"
 version = "0.1.0"
 description = ""
 authors = ["Arthur Pastel <arthur.pastel@gmail.com>"]
 license = "ISC"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-fastapi = "^0.80.0"
-uvicorn = "^0.18.3"
-passlib = {extras = ["bcrypt"], version = "^1.7.4"}
-python-jose = {extras = ["cryptography"], version = "^3.3.0"}
-odmantic = {git = "https://github.com/art049/odmantic.git"}
+python = "^3.11"
+fastapi = "0.104.1"
+passlib = { extras = ["bcrypt"], version = "^1.7.4" }
+python-jose = { extras = ["cryptography"], version = "^3.3.0" }
+odmantic = { git = "https://github.com/art049/odmantic.git" }
+pydantic-settings = "^2.1.0"
+uvicorn = "^0.24.0.post1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

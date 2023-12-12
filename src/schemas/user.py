@@ -20,8 +20,8 @@ class User(BaseSchema):
     email: str
     token: str
     username: str
-    bio: Optional[str]
-    image: Optional[str]
+    bio: Optional[str] = None
+    image: Optional[str] = None
 
 
 class UserResponse(BaseSchema):

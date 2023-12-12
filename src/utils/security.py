@@ -14,7 +14,7 @@ from starlette.requests import Request
 from core.exceptions import CredentialsException, NotAuthenticatedException
 from models.user import UserModel
 from schemas.user import User
-from settings import SETTINGS, EngineD
+from settings import SETTINGS, Engine
 
 
 class Token(BaseModel):
@@ -99,7 +99,7 @@ def create_access_token(user: UserModel) -> str:
 
 
 async def get_current_user_instance(
-    token: Optional[str] = Depends(OAUTH2_SCHEME), engine: AIOEngine = EngineD
+    token: Optional[str] = Depends(OAUTH2_SCHEME),
 ) -> UserModel:
     """Decode the JWT and return the associated User"""
     if token is None:
@@ -118,17 +118,17 @@ async def get_current_user_instance(
     except ValidationError:
         raise CredentialsException()
 
-    user = await get_user_instance(engine, username=token_content.username)
+    user = await get_user_instance(Engine, username=token_content.username)
     if user is None:
         raise CredentialsException()
     return user
 
 
 async def get_current_user_optional_instance(
-    token: str = Depends(OAUTH2_SCHEME), engine: AIOEngine = EngineD
+    token: str = Depends(OAUTH2_SCHEME),
 ) -> Optional[UserModel]:
     try:
-        user = await get_current_user_instance(token, engine)
+        user = await get_current_user_instance(token)
         return user
     except HTTPException:
         return None

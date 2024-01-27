@@ -7,7 +7,7 @@ license = "ISC"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "0.104.1"
+fastapi = "0.109.0"
 passlib = { extras = ["bcrypt"], version = "^1.7.4" }
 python-jose = { extras = ["cryptography"], version = "^3.3.0" }
 odmantic = { git = "https://github.com/art049/odmantic.git" }

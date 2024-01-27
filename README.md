@@ -13,20 +13,19 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 [![mypy: checked](https://img.shields.io/badge/mypy-checked-informational.svg)](http://mypy-lang.org/)
 [![Manager: poetry](https://img.shields.io/badge/manager-poetry-blueviolet.svg)](https://poetry.eustace.io/)
+[![Realworld Tests](https://github.com/AndreGuerra123/fastapi-odmantic-realworld-example/actions/workflows/realworld-tests.yml/badge.svg)](https://github.com/AndreGuerra123/fastapi-odmantic-realworld-example/actions/workflows/realworld-tests.yml)
 
 </div>
 
-> ### [FastAPI](https://github.com/tiangolo/fastapi) + [ODMantic](https://github.com/art049/odmantic) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
-
-[![CI](https://github.com/art049/fastapi-odmantic-realworld-example/actions/workflows/ci.yml/badge.svg)](https://github.com/art049/fastapi-odmantic-realworld-example/actions/workflows/ci.yml)
-[![Realworld Tests](https://github.com/art049/fastapi-odmantic-realworld-example/actions/workflows/realworld-tests.yml/badge.svg)](https://github.com/art049/fastapi-odmantic-realworld-example/actions/workflows/realworld-tests.yml)
+> ### [FastAPI](https://github.com/tiangolo/fastapi) + [ODMantic](https://github.com/art049/odmantic) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API
 
 ## Getting Started
 
 ### :hammer: Installation
 
 - [Install Docker](https://docs.docker.com/engine/install/)
-- Build and run: docker-compose up api
+- Build and run:
+  ''''docker-compose up api''''
 
 ### :bulb: Useful scripts
 

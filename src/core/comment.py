@@ -61,5 +61,6 @@ def get_comment_and_index_from_id(
 
 
 async def delete_comment_by_index(engine: AIOEngine, article: ArticleModel, index: int):
-    article.comments = article.comments[:index] + article.comments[index + 1 :]
+    pos = index + 1
+    article.comments = article.comments[:index] + article.comments[pos:]
     await engine.save(article)

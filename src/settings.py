@@ -1,5 +1,3 @@
-from typing import Optional
-
 from motor.motor_asyncio import AsyncIOMotorClient
 from odmantic import AIOEngine
 from pydantic import Field
@@ -13,11 +11,11 @@ class _Settings(BaseSettings):
     )
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-    MONGO_URI: Optional[str] = None
+    MONGO_URI: str
 
 
 # Make this a singleton to avoid reloading it from the env everytime
 SETTINGS = _Settings()
 
 MotorClient = AsyncIOMotorClient(SETTINGS.MONGO_URI)
-Engine = AIOEngine(MotorClient, database="test")
+Engine = AIOEngine(MotorClient)

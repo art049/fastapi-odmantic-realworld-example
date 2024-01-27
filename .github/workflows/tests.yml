@@ -1,0 +1,29 @@
+name: Realworld API Tests
+
+on: [push]
+
+jobs:
+  pre-commit:
+    timeout-minutes: 2
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Project
+      uses: actions/checkout@v3
+    - name: Execute Unit Tests
+      run: docker-compose up --build pre-commit
+  unit-tests:
+    timeout-minutes: 2
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Project
+      uses: actions/checkout@v3
+    - name: Execute Unit Tests
+      run: docker-compose up --build unit-tests
+  integration-tests:
+    timeout-minutes: 2
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Project
+      uses: actions/checkout@v3
+    - name: Execute Integration Tests
+      run: docker-compose up --build integration-tests

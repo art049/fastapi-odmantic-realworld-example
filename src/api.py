@@ -1,4 +1,3 @@
-import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
@@ -30,6 +29,3 @@ app.include_router(article_router, tags=["article"])
 app.include_router(comment_router, tags=["article"])
 app.include_router(tag_router, tags=["tag"])
 app.include_router(profile_router, tags=["profile"])
-
-if __name__ == "__main__":
-    uvicorn.run(app)

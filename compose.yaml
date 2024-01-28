@@ -1,0 +1,60 @@
+services:
+  api:
+    build: .
+    expose:
+      - 8000
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/realworld
+    ports:
+      - "8000:8000"
+    networks:
+      - realworld
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/data/db
+    networks:
+      - realworld
+
+  unit-tests:
+    build:
+      dockerfile: dockerfile.dev
+      context: .
+    volumes:
+      - ./:/app/
+    entrypoint: ["poetry", "run", "pytest", "tests"]
+    profiles: [tests]
+
+  integration-tests:
+    build:
+      context: ./tests/integration
+    environment:
+      - APIURL=http://api:8000
+    depends_on:
+      - api
+    networks:
+      - realworld
+    profiles: [tests]
+
+  pre-commit:
+    build:
+      dockerfile: dockerfile.dev
+      context: .
+    volumes:
+      - ./:/app/
+      - pre-commit:/root/.cache/pre-commit/
+    entrypoint: ["poetry", "run", "pre-commit", "run", "--all-files"]
+    profiles: [pre-commit]
+
+volumes:
+  pre-commit:
+  mongodb:
+
+networks:
+  realworld:
+    driver: bridge

@@ -25,13 +25,13 @@
 
 - [Install Docker](https://docs.docker.com/engine/install/)
 - [Install Compose](https://docs.docker.com/compose/install/)
-- Build and run: ``docker-compose up api``
+- Build and run: `docker-compose up api`
 
 ### :bulb: Useful scripts
 
-- Unit tests: ``docker-compose up unit-tests``
-- Integration tests: ``docker-compose up integration-tests``
-- Pre-commit setup: ``docker-compose up pre-commit``
+- Unit tests: `docker-compose up unit-tests`
+- Integration tests: `docker-compose up integration-tests`
+- Pre-commit setup: `docker-compose up pre-commit`
 
 ## Coming Soon
 

@@ -13,7 +13,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 [![mypy: checked](https://img.shields.io/badge/mypy-checked-informational.svg)](http://mypy-lang.org/)
 [![Manager: poetry](https://img.shields.io/badge/manager-poetry-blueviolet.svg)](https://poetry.eustace.io/)
-[![Tests](https://github.com/AndreGuerra123/fastapi-odmantic-realworld-example/actions/workflows/tests.yml/badge.svg)](https://github.com/AndreGuerra123/fastapi-odmantic-realworld-example/actions/workflows/tests.yml)
+[![Tests](https://github.com/art049/fastapi-odmantic-realworld-example/actions/workflows/tests.yml/badge.svg)](https://github.com/art049/fastapi-odmantic-realworld-example/actions/workflows/tests.yml)
 
 </div>
 

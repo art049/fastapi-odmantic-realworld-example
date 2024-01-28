@@ -24,17 +24,19 @@
 ### :hammer: Installation
 
 - [Install Docker](https://docs.docker.com/engine/install/)
-- Build and run:
-  ''''docker-compose up api''''
+- [Install Compose](https://docs.docker.com/compose/install/)
+- Build and run: ``docker-compose up api``
 
 ### :bulb: Useful scripts
 
-- Unit tests: docker-compose up unit-tests
-- Integration tests: docker-compose up integration-tests
-- Linting and other tests: docker-compose up pre-commit
+- Unit tests: ``docker-compose up unit-tests``
+- Integration tests: ``docker-compose up integration-tests``
+- Pre-commit setup: ``docker-compose up pre-commit``
 
 ## Coming Soon
 
 - [ ] Articles with details on every single step required to build this app
-- [ ] Unit Testing
+- [ ] Live reloading
+- [ ] Unit Testing with coverage
+- [ ] Debug vscode
 - [ ] Deployment on AWS with MongoDB Atlas

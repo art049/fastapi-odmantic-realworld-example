@@ -27,7 +27,8 @@ services:
       context: .
     volumes:
       - ./:/app/
-    entrypoint: ["poetry", "run", "pytest", "tests"]
+    entrypoint: [ "poetry", "run", "pytest", "tests" ]
+    profiles: [ tests ]
 
   integration-tests:
     build:
@@ -38,6 +39,7 @@ services:
       - api
     networks:
       - realworld
+    profiles: [ tests ]
 
   pre-commit:
     build:
@@ -46,11 +48,13 @@ services:
     volumes:
       - ./:/app/
       - pre-commit:/root/.cache/pre-commit/
-    entrypoint: ["poetry", "run", "pre-commit", "run", "--all-files"]
+    entrypoint: [ "poetry", "run", "pre-commit", "run", "--all-files" ]
+    profiles: [ pre-commit ]
 
 volumes:
   pre-commit:
   mongodb:
+
 
 networks:
   realworld:
